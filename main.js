@@ -81,12 +81,19 @@ var peer = new Peer({
 
 peer.on('open', id => {
   $('#my-peer').append(id);
-  $('#btnSignUp').click( () =>{
+/*  $('#btnSignUp').click( () =>{
     //const username = $('#txtUsername').val();
     getName('room1',id);
     console.log("name : " + name + " peerid : "+ id);
     socket.emit('USER-CONNECT',{ ten: name, peerId: id });
-
+  });
+*/
+$('#button_click').click( () =>{
+    //const username = $('#txtUsername').val();
+    const room = $(this).attr('id');
+    getName(room,id);
+    console.log("name : " + name + " peerid : "+ id);
+    socket.emit('USER-CONNECT',{ ten: name, peerId: id });
   });
 });
 
