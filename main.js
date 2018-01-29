@@ -88,7 +88,7 @@ peer.on('open', id => {
     socket.emit('USER-CONNECT',{ ten: name, peerId: id });
   });
 */
-$('#button_click').click( () =>{
+$('.button_click').click( () =>{
     //const username = $('#txtUsername').val();
     const room = $(this).attr('id');
     getName(room,id);
