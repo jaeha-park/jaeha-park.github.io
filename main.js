@@ -2,6 +2,23 @@ const socket = io('https://stream1802.herokuapp.com/');
 
 $('#div-chat').hide();
 
+$.ajax({
+  url: "",
+  data: {
+    ident: "jaehaPark",
+    secret: "c4de3e18-04b8-11e8-a664-7786df152cea",
+    domain: "jaeha-park.github.io",
+    application: "default",
+    room: "default",
+    secure: 1
+  },
+  success: function (data, status) {
+    customConfig = data.d;
+    console.log(customConfig);
+  },
+  async: false
+});
+
 socket.on('USER-INPUT',arrUserInfo =>{
 
   $('#div-chat').show();
