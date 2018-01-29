@@ -5,6 +5,7 @@ var room ="";
 var name = "";
 var num=0;
 var text = "";
+let customConfig;
 
 $('#div-chat').hide();
 
@@ -70,7 +71,13 @@ function playStream(idVideoTag,stream){
 //.then(stream => playStream('localStream',stream));
 
 
-var peer = new Peer({key: 'peerjs', host: 'mypeer1802.herokuapp.com', secure: true , port: 443 });
+var peer = new Peer({
+  key: 'peerjs',
+  host: 'mypeer1802.herokuapp.com',
+  secure: true,
+  port: 443,
+  config: customConfig
+});
 
 peer.on('open', id => {
   $('#my-peer').append(id);
