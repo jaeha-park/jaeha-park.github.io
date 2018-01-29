@@ -5,11 +5,16 @@
         <script src="jquery.js"></script>
         <script src="peer.js"></script>
         <script src="socket.io.js"></script>
+        <link rel="stylesheet" type="text/css" href="public/stylesheets/video.css">
+        <link rel="stylesheet" type="text/css" href="public/stylesheets/chat.css">
+        <link rel="stylesheet" type="text/css" href="public/stylesheets/layout.css">
+
     </head>
     <body>
 
       <div id="div-chat">
 
+      <div id="div-video">
         <p>Online user: </p>
         <ul id="ulUser"></ul>
         <h3 id="my-peer">Your Id: </h3>
@@ -20,6 +25,21 @@
         <input type="text" id="remoteId" placeholder="Remote Id">
         <button id="btnCall">Call</button>
       </div>
+
+ <div id="div-chatting">
+    <div id="flip"><h4 id="room-connecter" style="margin-bottom: 0; display:inline-block; margin-right:5px;">...</h4><span id="font" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+    <div id="panel">
+      <div id="div-bottom">
+          <div id="txtwindow"></div>
+            <div id="txt_b">
+              <input type="text" id="txtMessage" placeholder="please input msg"/>
+              <input type="button" id="btnChat" value="Chat"/>
+            </div>
+       </div>
+    </div>
+</div>
+
+  </div>
 
       <div id="div-sign">
         <br /><br />

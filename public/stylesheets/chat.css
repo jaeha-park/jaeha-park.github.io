@@ -1,0 +1,125 @@
+@CHARSET "EUC-KR";
+
+#panel, #flip {
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+    bottom: 0;
+}
+
+#panel {
+    display: none;
+    height: 530px;
+}
+#flip{
+  height: 44px;
+}
+
+/* ////////////////////// msg /////////////////////// */
+
+#txtMessage{
+  width: 82%;
+  height: 25px;
+  font-size: 16px;
+  float: left;
+}
+
+#btnChat{
+  height: 30px;
+  width: 17.2%;
+  float: right;
+}
+
+#txt_b{
+  width: 100%;
+  position: relative;
+  bottom: 0px;
+}
+
+#dsRoom{
+  width: 100%;
+  height:
+}
+
+#txtwindow{
+  width: 100%;
+  height: 500px;
+  border: 1px solid black;
+  overflow: auto;
+}
+
+
+
+/* /////////////////////// chat //////////////////////*/
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    width: 100%!important;
+}
+
+.darker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 10px;
+    margin-right:0;
+}
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}
+
+.text_r{
+  float: right;
+  font-weight: bolder;
+  line-height: 35px;
+  display: inline-block;
+}
+
+.text_l{
+  float: left;
+
+  display: inline-block;
+  font-weight: bolder;
+  line-height: 35px;
+  margin-right: 10px;
+}
+
+.text_or{
+    line-height: 60px;
+    margin-right: 10px;
+    float: right;
+}
+
+.text_ol{
+    line-height: 60px;
+    margin-left: 10px;
+    float: left;
+}
+/* ///////////////////////////////////////////////////////// */
