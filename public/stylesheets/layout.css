@@ -8,19 +8,19 @@
 #div-chat{
   width: 100%;
   /*background-color: yellow;*/
-  
+
 }
 
 #div-video{
   width: 40%;
   /*background-color: yellow;*/
-  float: left;
+  float: right;
 }
 
 #div-chatting{
   width: 60%;
   /*background-color: green;*/
-  float: right;
+  float: left;
 }
 
 
