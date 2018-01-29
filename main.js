@@ -5,7 +5,7 @@ var room ="";
 var name = "";
 var num=0;
 var text = "";
-let customConfig;
+var customConfig;
 
 $('#div-chat').hide();
 
