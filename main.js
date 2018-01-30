@@ -6,6 +6,7 @@ var name = "";
 var num=0;
 var text = "";
 var customConfig;
+var peerid="";
 
 $('#div-chat').hide();
 
@@ -34,13 +35,30 @@ socket.on('USER-INPUT',arrUserInfo =>{
     console.log("user enter : "+arrUserInfo);
     arrUserInfo.forEach(user => {
         const { ten, peerId } = user;
-        $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
+        //$('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
+        if(name != ten){
+        $('#remote-user').append(`<div style="cursor:pointer; font-size:27px; display:inline-block" id="${peerId}">${ten}</div>`);
+        $('#remote-user').append('<span id="video_btn" class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="cursor:pointer; font-size:25px; margin-left:10px;margin-top:5px; margin-right:10px;"></span>');
+        $('#remote-user').css('display','inline-block');
+      }else{
+        $('#local-user').append(`<div style="cursor:pointer; font-size:27px; display:inline-block;" id="${peerId}">${ten}</div>`);
+        $('#local-user').append('<span id="video_btn" class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="cursor:pointer; font-size:25px; margin-left:10px;margin-top:5px; margin-right:10px;"></span>');
+      }
     });
 
     socket.on('USER-INFO',user =>{
       console.log(user);
           const {ten, peerId} = user;
-          $('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
+          //$('#ulUser').append(`<li id="${peerId}">${ten}</li>`);
+          console.log("name =:= " + name+" ten =:= "+ ten);
+          if(name != ten){
+          $('#remote-user').append(`<div style="cursor:pointer; font-size:27px; display:inline-block;" id="${peerId}">${ten}</div>`);
+          $('#remote-user').append('<span id="video_btn" class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="cursor:pointer; font-size:25px; margin-left:10px;margin-top:5px; margin-right:10px;"></span>');
+          $('#remote-user').css('display','inline-block');
+        }else{
+          $('#local-user').append(`<div style="cursor:pointer; font-size:27px; display:inline-block;" id="${peerId}">${ten}</div>`);
+          $('#local-user').append('<span id="video_btn" class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="cursor:pointer; font-size:25px; margin-left:10px;margin-top:5px; margin-right:10px;"></span>');
+        }
     });
 
     socket.on('USER-DELETE',peerId => {
@@ -80,14 +98,14 @@ var peer = new Peer({
 });
 
 peer.on('open', id => {
-  $('#my-peer').append(id);
+  peerid = $('#my-peer').append(id);
 /*  $('#btnSignUp').click( () =>{
     //const username = $('#txtUsername').val();
     getName('room1',id);
     console.log("name : " + name + " peerid : "+ id);
     socket.emit('USER-CONNECT',{ ten: name, peerId: id });
   });
-*/
+
 $('.button_click').click( () =>{
     //const username = $('#txtUsername').val();
     const room = $(this).attr('id');
@@ -95,8 +113,41 @@ $('.button_click').click( () =>{
     console.log("name : " + name + " peerid : "+ id);
     socket.emit('USER-CONNECT',{ ten: name, peerId: id });
   });
+*/
+
+  $('.btnimg').click( () =>{
+      //const username = $('#txtUsername').val();
+      const room = $(this).attr('title');
+      console.log("room : "+room);
+      getName(room,id);
+      console.log("name : " + name + " peerid : "+ id);
+      socket.emit('USER-CONNECT',{ ten: name, peerId: id });
+    });
+
+});
+//////////////////////////////////
+$('#local-user').on('click','div', function(){
+  const id = $(this).attr('id');
+  openStream()
+  .then(stream =>{
+    playStream('localStream',stream);
+    const call = peer.call(id,stream);
+    call.on('stream',remoteStream => playStream('remoteStream',remoteStream));
+  });
 });
 
+
+$('#remote-user').on('click','div', function(){
+  const id = $(this).attr('id');
+  openStream()
+  .then(stream =>{
+    playStream('localStream',stream);
+    const call = peer.call(id,stream);
+    call.on('stream',remoteStream => playStream('remoteStream',remoteStream));
+  });
+});
+
+/*
 $('#ulUser').on('click','li', function(){
   const id = $(this).attr('id');
   openStream()
@@ -106,6 +157,7 @@ $('#ulUser').on('click','li', function(){
     call.on('stream',remoteStream => playStream('remoteStream',remoteStream));
   });
 });
+*/
 
 //caller
 $('#btnCall').click(() =>{
@@ -156,10 +208,10 @@ socket.on("server-name",function(data){
   console.log(time);
   //right
   if(data == name){
-      text = "<div class='container darker'>"+'<span class="time-left">'+time+'</span>'+'<img src="/public/img/chat.png" alt="Avatar" style="width:80%;" class="right">'+"<p class='text_r'>" +name +"</p> <p class='text_or'>";
+      text = "<div class='container darker' style='text-align:center; bacground-color:yellow;'>"+'<span class="time-left">'+time+'</span>'+'<img src="/public/img/chat.png" alt="Avatar" style="width:80%;" class="right">'+"<p class='text_r'>" +name +"</p> <p class='text_or'>";
   //left
   }else{
-    text = "<div class='container'>"+'<span class="time-right">'+time+'</span>'+'<img src="/public/img/chat.png" alt="Avatar" style="width:80%;">'+"<p class='text_l'>" +data +"</p> <p class='text_ol'>";
+    text = "<div class='container' style='bacground-color:white;'>"+'<span class="time-right">'+time+'</span>'+'<img src="/public/img/chat.png" alt="Avatar" style="width:80%;">'+"<p class='text_l'>" +data +"</p> <p class='text_ol'>";
   }
 });
 /////////////////////////////////
@@ -167,8 +219,8 @@ socket.on("server-name",function(data){
 ////////////////////draw
 var prepareCanvas = function () {
   var canDiv = document.getElementById("canvasDiv");
-  var canvasWidth="400";
-  var canvasHeight = "400";
+  var canvasWidth="760";
+  var canvasHeight = "610";
   canvas     = document.createElement("canvas");
   canvas.setAttribute("width", canvasWidth);
   canvas.setAttribute("height", canvasHeight);
@@ -246,7 +298,7 @@ socket.on("drawing",function(msg){
 
 
 function getName(room,id){
-name = prompt("이름을 입력하세요.", "");
+name = prompt("아이디를 입력하세요.", "");
   if(id != ""){
     socket.emit('USER-INFO', { ten: name, peerId: id });
     $("#room-connecter").html(room);
@@ -261,6 +313,10 @@ $(document).ready(function(){
 
 var out = document.getElementById("txtwindow");
 var isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1;
+
+$(".btnimg").click(function(){
+
+});
 
 $("#flip").click(function(){
      $("#panel").slideToggle("slow");
